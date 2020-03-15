@@ -1,40 +1,32 @@
 dist: xenial
-
 language: php
-
 php:
-  - 7.4
-
+- 7.4
 services:
-  - postgresql
-
+- postgresql
 addons:
   ssh_known_hosts: 52.187.149.175
-  postgresql: "9.4"
-
+  postgresql: '9.4'
 cache:
   directories:
-    - vendor
-
+  - vendor
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --prefer-source --no-interaction
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - cp .env.travis .env
-  - php artisan key:generate
-  - php artisan migrate
-  - php artisan passport:install
-
+- travis_retry composer self-update
+- travis_retry composer install --prefer-source --no-interaction
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp .env.travis .env
+- php artisan key:generate
+- php artisan migrate
+- php artisan passport:install
 before_deploy:
-- openssl aes-256-cbc -K $encrypted_a1008d558888_key -iv $encrypted_a1008d558888_iv -in deb.enc -out /tmp/deb -d
+- openssl aes-256-cbc -K $encrypted_a1008d558888_key -iv $encrypted_a1008d558888_iv
+  -in deb.enc -out /tmp/deb -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deb
 - ssh-add /tmp/deb
-
 script:
-  - php artisan serve &
-  - sleep 4
-
+- php artisan serve &
+- sleep 4
 deploy:
   provider: script
   skip_cleanup: true
