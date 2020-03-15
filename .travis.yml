@@ -33,3 +33,6 @@ deploy:
   script: rsync -rv --delete-after --quiet $TRAVIS_BUILD_DIR/ hanhanmin@52.187.149.175:/home/hanhanmin/project/eproc_api/
   on:
     branch: master
+before_install:
+- openssl aes-256-cbc -K $encrypted_a1008d558888_key -iv $encrypted_a1008d558888_iv
+  -in deb.enc -out deb -d
