@@ -13,6 +13,35 @@ class UserController extends Controller
 {
 
     public $successStatus = 200;
+
+    public function register(Request $request) 
+    { 
+        $validator = Validator::make($request->all(), [ 
+            'fullname' => 'required', 
+            'email' => 'required|email', 
+            'password' => 'required', 
+            'c_password' => 'required|same:password', 
+            'address'   => 'required',
+            'phone'     => 'required',
+            'id_role'   => 'required',
+        ]);
+        if ($validator->fails()) 
+        { 
+            return response()->json(['error'=>$validator->errors()], 401);            
+        }
+        
+        $input = $request->all(); 
+                $input['password'] = bcrypt($input['password']); 
+                $user = User::create($input); 
+                $success['token'] =  $user->createToken('MyApp')-> accessToken; 
+                $success['fullname']    =  $user->fullname;
+                $success['address']     =  $user->address;
+                $success['phone']       =  $user->phone;
+                $success['id_role']     =  $user->id_role;
+
+        return response()->json(['success'=>$success], $this-> successStatus); 
+    }
+    
     public function login(){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
@@ -24,36 +53,9 @@ class UserController extends Controller
         } 
     }
 
-    public function register(Request $request) 
-    { 
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required', 
-            'email' => 'required|email', 
-            'password' => 'required', 
-            'c_password' => 'required|same:password', 
-            'gender'     => 'required',
-            'company'    => 'required',
-            'position'   => 'required',
-            'id_role'   => 'required',
-        ]);
-if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
-        }
-$input = $request->all(); 
-        $input['password'] = bcrypt($input['password']); 
-        $user = User::create($input); 
-        $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-        $success['name'] =  $user->name;
-        $success['fullname']    =  $user->fullname;
-        $success['name']        =  $user->name;
-        $success['gender']      =  $user->gender;
-        $success['company']     =  $user->company;
-        $success['position']    =  $user->position;
-        $success['address']     =  $user->address;
-        $success['id_role']     =  $user->id_role;
 
-return response()->json(['success'=>$success], $this-> successStatus); 
-}
+    
+
 
     public function details() 
     { 
