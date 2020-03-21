@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RoleForeignKey extends Migration
+class ForeignKeyRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -18,7 +18,7 @@ class RoleForeignKey extends Migration
                 ->references('id')->on('roles')
                 ->onDelete('cascade');
         });
-    }   
+    }
 
     /**
      * Reverse the migrations.
