@@ -23,3 +23,8 @@ Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'API\UserController@details');
 });
+
+Route::group(['middleware' => 'check-token'], function(){
+    Route::get('post', 'PostController@index');
+    Route::get('post/{id}', 'PostController@detail');
+}); 
