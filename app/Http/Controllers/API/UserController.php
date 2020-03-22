@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User; 
 use Illuminate\Support\Facades\Auth; 
 use Validator;
+use Illuminate\Support\Carbon;
+use App\Models\TokenManagement;
 
 
 class UserController extends Controller
@@ -64,7 +66,38 @@ class UserController extends Controller
 
     public function details() 
     {   
-        $user = Auth::user(); 
+        $user = Auth::user();
+        $userSerialize = serialize($user);
+        $userUnserializeArray = (array) unserialize($userSerialize);
+
+        $arrayKeys = array_keys($userUnserializeArray);
+        foreach ($arrayKeys as $value)
+        {
+
+            if (strpos($value, 'accessToken') !== false) {
+
+                $userAccessTokenArray = (array) $userUnserializeArray[$value];
+                $arrayAccessKeys = array_keys($userAccessTokenArray);
+                foreach ($arrayAccessKeys as $arrayAccessValue) {
+
+                    if (strpos($arrayAccessValue, 'original') !== false) {
+
+                        $userTokenId = $userAccessTokenArray[$arrayAccessValue]['id'];
+                        $checkToken = TokenManagement::where([
+                            ['id', '=', $userTokenId],
+                            ['expires_at', '>', Carbon::now()]
+                        ])->first();
+
+                        if ( !$checkToken ) {
+                            return response()->json([
+                                'error'=>true,
+                                'msg'=> 'Token time has expired. Please log in again.'
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
         return response()->json(['success' => $user], $this-> successStatus); 
     } 
 }
