@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Carbon;
 use App\Models\TokenManagement;
+use App\OauthAccessTokens;
+
 
 
 class UserController extends Controller
@@ -60,6 +62,8 @@ class UserController extends Controller
         } 
     }
 
+    
+
 
     
 
@@ -83,7 +87,7 @@ class UserController extends Controller
                     if (strpos($arrayAccessValue, 'original') !== false) {
 
                         $userTokenId = $userAccessTokenArray[$arrayAccessValue]['id'];
-                        $checkToken = TokenManagement::where([
+                        $checkToken = OauthAccessTokens::where([
                             ['id', '=', $userTokenId],
                             ['expires_at', '>', Carbon::now()]
                         ])->first();
@@ -100,4 +104,63 @@ class UserController extends Controller
         }
         return response()->json(['success' => $user], $this-> successStatus); 
     } 
+
+    public function logout(Request $res)
+    {
+      if (Auth::user()) {
+        $user = Auth::user()->token();
+        $user->revoke();
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Logout successfully'
+      ]);
+      }else {
+        return response()->json([
+          'success' => false,
+          'message' => 'Unable to Logout'
+        ]);
+      }
+     }
+
+
+//     public function check(Request $request) {
+        
+//     $user = Auth::user();
+//     $jwt = trim(preg_replace('/^(?:\s+)?Bearer\s/', '', $request->header('authorization')));
+//     $token = (new \Lcobucci\JWT\Parser())->parse($jwt);
+//     $access_token = $token->getHeader('jti');
+//     $expires_at = $token->getClaim('exp');
+
+//     // Get UserID
+//     $userToken = AccessToken::where('id', $access_token)->first();
+//     $userID = $userToken->users->id;        
+
+//     // Get Refresh Token
+//     $userRefreshToken = UserRefreshToken::where('user_id', $userID)->first();
+//     $refreshToken = $userRefreshToken->refresh_token;
+
+//     // Access Token has expired
+//     // Check Refresh Token
+//     $table = DB::table('oauth_access_tokens')
+//     ->select('id', 'expires_at')
+//     ->where($access_token)
+//     ->first();
+
+//     $expires_at = Carbon::parse($table->expires_at)->timestamp;
+    
+//     // Check Refresh Token Expired
+//     if ($expires_at < Carbon::now()->timestamp) {
+//         return response()->json([
+//             'error'=>true,
+//             'msg'=> 'Token time has expired. Please log in again.'
+//         ]);
+//     }
+//         else {
+//             return response()->json(['success' => $user], $this-> successStatus); 
+//         }
+        
+        
+    
+//   }
 }
