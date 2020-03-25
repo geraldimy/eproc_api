@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ForeignKeyRoles extends Migration
+class ForeignKeyCategoryProduct extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class ForeignKeyRoles extends Migration
      */
     public function up()
     {
-        Schema::table('users', function($table){
-            $table->foreign('id_role')
-                ->references('id')->on('roles')
+        Schema::table('product', function($table){
+            $table->foreign('category')
+                ->references('id')->on('category')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+              
         });
     }
 

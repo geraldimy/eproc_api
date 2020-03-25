@@ -21,10 +21,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('details', 'API\UserController@details');
+    Route::get('details', 'API\UserController@details');
+    Route::post('check', 'API\UserController@check');
+    Route::get('logout', 'API\UserController@logout');
+    Route::get('user', 'API\UserController@user');
 });
 
 Route::group(['middleware' => 'check-token'], function(){
     Route::get('post', 'PostController@index');
     Route::get('post/{id}', 'PostController@detail');
 }); 
+

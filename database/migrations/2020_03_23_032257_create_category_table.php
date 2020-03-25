@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ForeignKeyRoles extends Migration
+class CreateCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class ForeignKeyRoles extends Migration
      */
     public function up()
     {
-        Schema::table('users', function($table){
-            $table->foreign('id_role')
-                ->references('id')->on('roles')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+        Schema::create('category', function (Blueprint $table) {
+            $table->id();
+            $table->string('category_name');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +27,6 @@ class ForeignKeyRoles extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('category');
     }
 }
