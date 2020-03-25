@@ -22,7 +22,7 @@ class UserController extends Controller
     { 
         $validator = Validator::make($request->all(), [ 
             'fullname' => 'required', 
-            'email' => 'required|email', 
+            'email' => 'required|email:rfc,dns', 
             'password' => 'required', 
             'c_password' => 'required|same:password', 
             'address'   => 'required',
@@ -46,10 +46,21 @@ class UserController extends Controller
         return response()->json(['success'=>$success], $this-> successStatus); 
     }
     
-    public function login(){ 
+    public function login(Request $request){ 
+
+        
+        $validator = Validator::make($request->all(), [ 
+            'email' => 'required|email:rfc,dns', 
+            'password' => 'required', 
+        ]);
+        if ($validator->fails()) 
+        { 
+            return response()->json(['error'=>$validator->errors()], 401);            
+        }
+        
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            $success['token']       =  $user->createToken('MyApp')-> accessToken;
             $success['fullname']    =  $user->fullname;
             $success['address']     =  $user->address;
             $success['email']       =  $user->email;
