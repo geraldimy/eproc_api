@@ -14,13 +14,22 @@ class CreateRpkTable extends Migration
     public function up()
     {
         Schema::create('rpk', function (Blueprint $table) {
-            $table->id();
-            $table->string('rpk_name');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('email')->unique();
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->string('id')->unique();
+            $table->string('user_id');
+            $table->string('nama_rpk');
+            $table->string('pemilik');
+            $table->string('email')->nullable(true);
+            $table->string('divre');
+            $table->string('entitas');
+            $table->string('npwp')->nullable(true);
+            $table->string('kota');
+            $table->string('kecamatan');
+            $table->string('kelurahan');
+            $table->string('alamat');
+            $table->string('kode_pos');
+            $table->string('telp');
+            $table->decimal('latitude', 9, 6);
+            $table->decimal('longitude', 9, 6);
             $table->timestamps();
         });
     }

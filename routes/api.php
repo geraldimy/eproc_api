@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RPKController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
+Route::get('rpk', [RPKController::class, 'getRpkByLocation']);
+
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('details', 'API\UserController@details');
     Route::post('check', 'API\UserController@check');
@@ -30,5 +33,5 @@ Route::group(['middleware' => 'auth:api'], function(){
 Route::group(['middleware' => 'check-token'], function(){
     Route::get('post', 'PostController@index');
     Route::get('post/{id}', 'PostController@detail');
-}); 
+});
 
