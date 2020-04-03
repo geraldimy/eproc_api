@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('check', 'API\UserController@check');
     Route::get('logout', 'API\UserController@logout');
     Route::get('user', 'API\UserController@user');
+    Route::resource('products', 'API\ProductController');
+    Route::resource('promo', 'PromotionController');
 });
 
 Route::group(['middleware' => 'check-token'], function(){
