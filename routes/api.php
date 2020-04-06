@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 Route::get('rpk', [RPKController::class, 'getRpkByLocation']);
+Route::get('rpkdetails', [RPKController::class, 'getRpkById']);
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('details', 'API\UserController@details');
