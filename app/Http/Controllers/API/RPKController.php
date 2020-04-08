@@ -39,4 +39,18 @@ class RPKController extends Controller
 
         return \response($rpk)->header('Content-Type', 'application/json');
     }
+
+    public function getRpkById(Request $request){
+        $id = $request->input('id');
+
+        $rpk = DB::table('rpk')
+        ->selectRaw('id,user_id, nama_rpk, pemilik, email, divre, entitas, npwp, kota, kecamatan, kelurahan, alamat, kode_pos, telp, latitude, longitude, created_at, updated_at')
+        ->from('rpk')
+        ->where('id', [$id])
+        ->get();
+
+
+        return \response($rpk)->header('Content-Type', 'application/json');
+    }
+
 }

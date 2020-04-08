@@ -27,18 +27,18 @@ class UserController extends Controller
             'password' => 'required', 
             'c_password' => 'required|same:password', 
             'address'   => 'required',
-            'phone'     => 'required',
+            'phone'     => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:13',
             'id_role'   => 'required',
         ]);
         if ($validator->fails())
         {
             return response()->json(['error'=>$validator->errors()], 401);
         }
-
-        $input = $request->all();
-                $input['password'] = bcrypt($input['password']);
-                $user = User::create($input);
-                $success['token'] =  $user->createToken('MyApp')-> accessToken;
+        
+        $input = $request->all(); 
+                $input['password'] = bcrypt($input['password']); 
+                $user = User::create($input); 
+                $success['token'] =  $user->createToken('MyApp')-> accessToken; 
                 $success['fullname']    =  $user->fullname;
                 $success['address']     =  $user->address;
                 $success['phone']       =  $user->phone;
