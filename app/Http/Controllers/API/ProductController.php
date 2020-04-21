@@ -18,7 +18,7 @@ class ProductController extends Controller
         $category = Category::all();
         foreach ($category as $cat) {
 
-        $produk = Product::select('id', 'product_name', 'short_desc', 'image')->where('category', $cat->id)->get();
+        $produk = Product::select('id', 'product_name', 'short_desc', 'image', 'color')->where('category', $cat->id)->get();
         
         $list[] = array('Category'=>$cat->category_name, 
             'Product'=>$produk);

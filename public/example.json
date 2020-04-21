@@ -1,0 +1,35 @@
+{
+  "data": [
+    {
+      "category": "beras",
+      "product": [
+        {
+          "id": 2,
+          "product_name": "BerasKita",
+          "short_desc": "Gula Keluarga Indonesia",
+          "color": "green",
+          "image": "testt"
+        },
+        {
+          "id": 3,
+          "product_name": "Beras Sachet",
+          "short_desc": "Gula Keluarga Indonesia",
+          "color": "green",
+          "image": "testt"
+        }
+      ]
+    },
+    {
+      "category": "minyak",
+      "product": [
+        {
+          "id": 2,
+          "product_name": "Minyak Kita",
+          "short_desc": "Gula Keluarga Indonesia",
+          "color": "green",
+          "image": "testt"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PB Memory Match</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        td{
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="#" id="html fomr">
+           
+            Grid size
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="grid" id="inlineRadio1" value="4">
+                    <label class="form-check-label" for="inlineRadio1">4x4</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="grid" id="inlineRadio2" value="6">
+                    <label class="form-check-label" for="inlineRadio2">6x6</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="grid" id="inlineRadio3" value="8">
+                    <label class="form-check-label" for="inlineRadio3">8x8</label>
+                  </div>
+            </div>
+
+            <div class="form-group">
+                <label for="htmlBox">HTML List</label>
+                <textarea class="form-control" name="htmlBox" id="htmlBox" rows="5"></textarea>
+            </div>
+
+            <div id="submit_btn" class="btn btn-success">Parse</div>
+        </form>
+    </div>
+    <div class="container" id="append_area">
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        var lis, grid, elem;
+        var table, trs = {};
+        var exponent = [];
+        var cardObj = {};
+        var funct = {};
+        var tds, local_trs;
+        funct.getRandomColor = function () {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        $('#submit_btn').on("click", evt => {
+            $('#append_area').innerHTML = "";
+            grid = parseInt($('input[name="grid"]:checked').val());
+            elem = document.createElement('div');
+            elem.innerHTML = $('#htmlBox').val();
+
+            lis = $(elem).find('li');
+        
+            
+            table = document.createElement("table");
+
+            for (let i = 0; i < grid; i++) {
+                let exp = grid*(i+1);
+                exponent.push(exp);
+            }
+
+            for (let i = 0; i < lis.length; i++) {
+                let spans = $(lis[i]).find('i');
+                let cuted_spans = $(spans[0]).attr('class').split(' ').pop();
+
+                if(i == 0 || i == grid || exponent.includes(i) || exponent[exponent.length-1] == i+1){
+                    if(i != 0){
+                        trs[i] = local_trs;
+                        table.appendChild(local_trs);
+                    }
+
+                    if(exponent[exponent.length-1] != i+1){
+                        local_trs = document.createElement('tr');
+                    }
+                }
+
+                if(cardObj.hasOwnProperty(cuted_spans)){
+                    let td = document.createElement("td");
+                    $(td).css("background-color", cardObj[cuted_spans]["color"]);
+                    local_trs.appendChild(td);
+                    console.log(i);
+                }else{
+                    cardObj[cuted_spans] = {};
+                    cardObj[cuted_spans]["color"] = funct.getRandomColor();
+
+                    let td = document.createElement("td");
+                    $(td).css("background-color", cardObj[cuted_spans]["color"]);
+                    local_trs.appendChild(td);
+                    console.log(i);
+                }
+
+                if(i == lis.length-1){
+                    trs[i] = local_trs;
+                    table.appendChild(local_trs);
+                }              
+            }
+            var container = $('#append_area');
+            container.append(table);
+        });
+    </script>
+</body>
+</html>
