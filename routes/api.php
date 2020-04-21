@@ -22,15 +22,16 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 Route::get('rpk', [RPKController::class, 'getRpkByLocation']);
-Route::get('rpkdetails', [RPKController::class, 'getRpkById']);
+Route::get('rpk/{id}', [RPKController::class, 'getRpkById']);
+Route::resource('products', 'API\ProductController');
+Route::resource('promo', 'PromotionController');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('details', 'API\UserController@details');
     Route::post('check', 'API\UserController@check');
     Route::get('logout', 'API\UserController@logout');
     Route::get('user', 'API\UserController@user');
-    Route::resource('products', 'API\ProductController');
-    Route::resource('promo', 'PromotionController');
+   
 });
 
 Route::group(['middleware' => 'check-token'], function(){

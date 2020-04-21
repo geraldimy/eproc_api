@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\RPK;
 
 class RPKController extends Controller
 {
@@ -40,17 +41,13 @@ class RPKController extends Controller
         return \response($rpk)->header('Content-Type', 'application/json');
     }
 
-    public function getRpkById(Request $request){
-        $id = $request->input('id');
+    public function getRpkById($id){
 
-        $rpk = DB::table('rpk')
-        ->selectRaw('id,user_id, nama_rpk, pemilik, email, divre, entitas, npwp, kota, kecamatan, kelurahan, alamat, kode_pos, telp, latitude, longitude, created_at, updated_at')
-        ->from('rpk')
-        ->where('id', [$id])
-        ->get();
-
-
-        return \response($rpk)->header('Content-Type', 'application/json');
+        $rpk = RPK::findOrFail($id);
+        if(is_null($rpk)) {
+            return response()->json(['error'=>'RPK Not Found'], 400); 
+        }
+         return response()->json($rpk,200);
     }
 
 }
