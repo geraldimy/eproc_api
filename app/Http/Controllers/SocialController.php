@@ -28,6 +28,7 @@ class SocialController extends Controller
         $success["token"] = $isUser->createToken('MyApp')->accessToken;
         $success["fullname"] = $isUser->fullname;
         $success["email"] = $user->email;
+        $success["is_social_user"] = true;
 
         return response()->json($success);
     }
