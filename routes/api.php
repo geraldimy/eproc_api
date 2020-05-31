@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('login', 'API\UserController@login');
+Route::get('oauth/google/redirect', 'SocialController@redirectToProvider');   
+Route::get('oauth/google/callback', 'SocialController@handleProviderCallback');  
 Route::post('register', 'API\UserController@register');
 Route::get('rpk', [RPKController::class, 'getRpkByLocation']);
 Route::get('rpk/{id}', [RPKController::class, 'getRpkById']);
@@ -31,7 +33,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('check', 'API\UserController@check');
     Route::get('logout', 'API\UserController@logout');
     Route::get('user', 'API\UserController@user');
-   
+    
 });
 
 Route::group(['middleware' => 'check-token'], function(){
