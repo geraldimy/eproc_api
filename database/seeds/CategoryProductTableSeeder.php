@@ -13,16 +13,19 @@ class CategoryProductTableSeeder extends Seeder
     {
         DB::table('category')->insert([
             [
-                'id'  => "1",
-                'category_name'=>"beras"
+              
+                'category_name'=>"Beras",
+                'description' => "Beras Bulog"
             ],
             [
-                'id'  => "2",
-                'category_name'=>"gula"
+                
+                'category_name'=>"Gula",
+                'description' => "Gula Bulog"
             ],
             [
-                'id'  => "3",
-                'category_name'=>"minyak"
+                
+                'category_name'=>"Minyak",
+                'description' => "Minyak Bulog"
             ],
 
         ]);

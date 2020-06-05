@@ -13,12 +13,11 @@ class ForeignKeyCategoryProduct extends Migration
      */
     public function up()
     {
-        Schema::table('product', function($table){
-            $table->foreign('category')
-                ->references('id')->on('category')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-              
+       Schema::table('product', function (Blueprint $table) {
+            $table->bigInteger('category')->unsigned()->change();
+            $table->foreign('category')->references('id')->on('category')
+                    ->onUpdate('cascade')->onDelete('cascade');
+            
         });
     }
 
@@ -29,6 +28,7 @@ class ForeignKeyCategoryProduct extends Migration
      */
     public function down()
     {
-        //
+        
+        
     }
 }

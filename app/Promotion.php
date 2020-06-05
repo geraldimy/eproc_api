@@ -8,6 +8,6 @@ class Promotion extends Model
 {
     protected $table = 'promo';
     protected $fillable = [
-         'promo_name', 'promo_desc', 'image', 'promo_start_date', 'promo_end_date',  
+       'id','promo_title', 'promo_desc', 'image', 'promo_start_date', 'promo_end_date', 'created_at', 'updated_at',
     ];
 }

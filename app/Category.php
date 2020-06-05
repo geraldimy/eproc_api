@@ -1,22 +1,17 @@
 <?php
 
 namespace App;
-use Eloquent;
-use App\Product;
+
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Eloquent
+class Category extends Model
 {
     protected $table = 'category';
-    protected $fillable = [
-        'id', 'category_name', 
+    protected $fillable = [ 'id', 'category_name', 'description',  'created_at', 'updated_at',
     ];
 
 
-    public function product()
-    {
-        return $this->belongsTo('App\Product', 'id', 'category'  );
-    }
+
 
 }

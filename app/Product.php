@@ -3,18 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Category;
+
 use Eloquent;
 
 
-class Product extends Eloquent
+class Product extends Model
 {
     protected $table = 'product';
     protected $fillable = [
-        'category', 'product_name', 'short_desc', 'long_desc', 'image', 'color', 'price', 'unit', 'status',  
+       'id','category', 'product_name', 'short_desc', 'long_desc', 'image', 'color', 'price', 'unit', 'status', 'created_at', 'updated_at', 
     ];
+  
 
     public function kategori() {
-        return $this->belongsTo('App\Category','category','id'); 
+        return $this->belongsTo('App\Category', 'category' , 'id'); 
     }
 }
