@@ -2,6 +2,7 @@
 ​
 @section('title')
     <title>Tambah Data Produk</title>
+
 @endsection
 ​
 @section('content')
@@ -26,33 +27,33 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="card card-default">
-                    
+
                 <div class="card-body">
                 <div class="row">
-                    <div class="col-md-12">
-                       
-                            
+                    <div class="col-md-12" ng-app="myApp" ng-controller="myCtrl">
+
+
                             @if (session('error'))
                             @alert(['type' => 'danger'])
                                 {!! session('error') !!}
                             @endalert
                             @endif
-                            <form action="{{ route('promo.store')}}" method="POST" enctype="multipart/form-data">
-                               
-                               
+                            <form action="{{ route('promo.store')}}" method="POST" enctype="multipart/form-data" name="myForm">
+
+
                                 {{csrf_field()}}
 
                                 <div class="form-group">
                                     <label for="">Title</label>
-                                    <input type="text" name="promo_title" required 
-                                        class="form-control {{ $errors->has('promo_title') ? 'is-invalid':'' }}">
+                                    <input type="text" name="promo_title" required
+                                        class="form-control {{ $errors->has('promo_title') ? 'is-invalid':'' }}" ng-model="input_field" name="input_field" ng-pattern="/^[A-Za-z0-9]/">
                                     <p class="text-danger">{{ $errors->first('promo_title') }}</p>
                                 </div>
                                 <div class="form-group">
                                     <label for=""> Description </label>
-                                    <textarea name="promo_desc" id="description" 
-                                        cols="5" rows="5" 
-                                        class="form-control {{ $errors->has('promo_desc') ? 'is-invalid':'' }}"></textarea>
+                                    <textarea name="promo_desc" id="description"
+                                        cols="5" rows="5"
+                                        class="form-control {{ $errors->has('promo_desc') ? 'is-invalid':'' }}" ng-model="description_field" name="description_field" ng-pattern="/^[A-Za-z0-9]/"></textarea>
                                     <p class="text-danger">{{ $errors->first('promo_desc') }}</p>
                                 </div>
                                 <div class="form-group">
@@ -77,25 +78,34 @@
                                       </div>
                                       <input type="text" name="date_end" class="form-control float-right" id="reservation2">
                                     </div>
-                                    
+
                                   </div>
                                 <div class="form-group">
                                     <label for="">Image</label>
                                     <input type="file" name="photo" class="form-control">
                                     <p class="text-danger">{{ $errors->first('photo') }}</p>
-                                </div>  
+                                </div>
                                 <div class="form-group">
-                                    <button class="btn btn-primary btn-sm">
+                                    <button class="btn btn-primary btn-sm" ng-disabled="myForm.input_field.$error.pattern || !input_field || !description_field">
                                         <i class="fa fa-send"></i> Save
                                     </button>
                                 </div>
                             </form>
                             </div>
+                            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {});
+  </script>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </section>
     </div>
 @endsection

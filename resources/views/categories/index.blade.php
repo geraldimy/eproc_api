@@ -39,10 +39,10 @@
                    </button>
                     </div>
             </div>
-           
+
 
               <!-- /.card-header -->
-             
+
                 <div class="card-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -64,7 +64,7 @@
                       <td>{{ $cat->description}}</td>
                       <td><center>
                         <button class="btn btn-info" data-mytitle="{{$cat->category_name}}" data-mydescription="{{$cat->description}}" data-catid={{$cat->id}} data-toggle="modal" data-target="#edit">Edit</button>
-                        
+
                         <button class="btn btn-danger" data-catid={{$cat->id}} data-toggle="modal" data-target="#delete">Delete</button>
                         </center>
                       </td>
@@ -84,13 +84,13 @@
         <!-- /.container-fluid -->
 
       <!-- /.content -->
-    
 
 
 
-    
 
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-app="myApp" ng-controller="myCtrl">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -100,26 +100,33 @@
               </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('category.store')}}" method="post">
+                <form action="{{route('category.store')}}" method="post" name="myForm">
                     {{csrf_field()}}
                 <div class="modal-body">
 
                   <div class="form-group">
                       <label for="title">Kategori</label>
-                      <input type="text" class="form-control" name="category_name" id="title">
+                      <input type="text" class="form-control" name="category_name" id="title" ng-model="input_field" name="input_field" ng-pattern="/^[A-Za-z0-9]/">
                   </div>
-      
+
                   <div class="form-group">
                       <label for="des">Deskripsi</label>
-                      <textarea name="description" id="des" cols="20" rows="5" id='des' class="form-control"></textarea>
+                      <textarea name="description" id="des" cols="20" rows="5" id='des' class="form-control" ng-model="description_field" name="description_field" ng-pattern="/^[A-Za-z0-9]/"></textarea>
                   </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="submit" class="btn btn-primary" ng-disabled="myForm.input_field.$error.pattern || !input_field || !description_field">Save</button>
                 </div>
             </form>
             </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {});
+</script>
           </div>
           <!-- /.modal-content -->
         </div>
@@ -190,4 +197,3 @@
   </div>
 </div>
 @endsection
-  
