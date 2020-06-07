@@ -26,24 +26,24 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="card card-default">
-                    
+
                 <div class="card-body">
                 <div class="row">
-                    <div class="col-md-12">
-                       
-                            
+                    <div class="col-md-12" ng-app="myApp" ng-controller="myCtrl">
+
+
                             @if (session('success'))
                                 @alert(['type' => 'success'])
                                     {!! session('success') !!}
                                 @endalert
                             @endif
-                            <form action="{{ route('product.store')}}" method="POST" enctype="multipart/form-data">
-                               
-                               
+                            <form action="{{ route('product.store')}}" method="POST" enctype="multipart/form-data" name="myForm">
+
+
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     <label for="">Kategori</label>
-                                    <select name="category" id="category_id" 
+                                    <select name="category" id="category_id"
                                         required class="form-control {{ $errors->has('category') ? 'is-invalid':'' }}">
                                         <option value="">Pilih</option>
                                         @foreach ($categories as $row)
@@ -54,22 +54,22 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Nama Produk</label>
-                                    <input type="text" name="product_name" required 
-                                        class="form-control {{ $errors->has('product_name') ? 'is-invalid':'' }}">
+                                    <input type="text" name="product_name" required
+                                        class="form-control {{ $errors->has('product_name') ? 'is-invalid':'' }}" ng-model="input_field" name="input_field" ng-pattern="/^[A-Za-z0-9]/">
                                     <p class="text-danger">{{ $errors->first('product_name') }}</p>
                                 </div>
                                 <div class="form-group">
                                     <label for=""> Deskripsi </label>
-                                    <textarea name="short_desc" id="description" 
-                                        cols="5" rows="5" 
-                                        class="form-control {{ $errors->has('short_desc') ? 'is-invalid':'' }}"></textarea>
+                                    <textarea name="short_desc" id="description"
+                                        cols="5" rows="5"
+                                        class="form-control {{ $errors->has('short_desc') ? 'is-invalid':'' }}" ng-model="description_field1" name="description_field" ng-pattern="/^[A-Za-z0-9]/"></textarea>
                                     <p class="text-danger">{{ $errors->first('short_desc') }}</p>
                                 </div>
                                 <div class="form-group">
                                     <label for=""> Deskripsi 2 </label>
-                                    <textarea name="long_desc" id="description" 
-                                        cols="5" rows="5" 
-                                        class="form-control {{ $errors->has('long_desc') ? 'is-invalid':'' }}"></textarea>
+                                    <textarea name="long_desc" id="description"
+                                        cols="5" rows="5"
+                                        class="form-control {{ $errors->has('long_desc') ? 'is-invalid':'' }}" ng-model="description_field2" name="description_field" ng-pattern="/^[A-Za-z0-9]/"></textarea>
                                     <p class="text-danger">{{ $errors->first('long_desc') }}</p>
                                 </div>
                                 <div class="form-group">
@@ -90,10 +90,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Warna</label>
-                  
+
                                     <div class="input-group my-colorpicker2">
                                       <input type="text" name="color" class="form-control">
-                  
+
                                       <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-square"></i></span>
                                       </div>
@@ -102,14 +102,14 @@
 
                                     <div class="form-group">
                                         <label for="">Status</label>
-                                        <input type="text" name="status" required 
+                                        <input type="text" name="status" required
                                             class="form-control {{ $errors->has('status') ? 'is-invalid':'' }}">
                                         <p class="text-danger">{{ $errors->first('status') }}</p>
                                     </div>
                                     <!-- /.input group -->
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-primary btn-sm">
+                                    <button class="btn btn-primary btn-sm" ng-disabled="myForm.input_field.$error.pattern || !input_field || !description_field1 || !description_field2">
                                         <i class="fa fa-send"></i> Simpan
                                     </button>
                                 </div>
@@ -119,6 +119,13 @@
                                 the plugin.
                             </div>
                             </div>
+                            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {});
+  </script>
                             </div>
                         </div>
                     </div>
