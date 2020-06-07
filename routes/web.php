@@ -33,3 +33,6 @@ Route::resource('promo', 'PromoController');
 Route::get('/test21', function() {
     return view ('products.create');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
