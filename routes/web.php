@@ -36,3 +36,14 @@ Route::get('/test21', function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix'=>'admin','middleware'=>['admin','auth'],'namespace'=>'admin'],function() {
+
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+});
+
+Route::group(['prefix'=>'user','middleware'=>['mahasiswa','auth'],'namespace'=>'user'],function(){
+
+    Route::get('dashboard', 'UserDashboardController@index')->name('user.dashboard');
+
+});
