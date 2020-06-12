@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -26,21 +27,24 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
-    protected function redirectTo()
-    {
-        if (auth()->user()->id_role == 1) {
-            return redirect ('dashboard');
-
-        }
-
-        elseif (auth()->user()->id_role == 2) {
-            return redirect ('/homeDsn');
-        }
-        elseif (auth()->user()->id_role == 3) {
-            return redirect('dashboard');
-        }
+    
+        public function redirectTo()
+        {
+            switch(Auth::user()->id_role){
+                case 3:
+                $this->redirectTo = '/admin';
+                return $this->redirectTo;
+                    break;
+                case 1:
+                    $this->redirectTo = '/superadmin';
+                    return $this->redirectTo;
+                    break;
+                default:
+                    $this->redirectTo = '/login';
+                    return $this->redirectTo;
+            }
     }
 
 
@@ -51,6 +55,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // $this->middleware('guest')->except('logout');
     }
 }

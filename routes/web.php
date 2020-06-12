@@ -17,9 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function() {
-    return view ('dashboard');
-});
+Route::get('/admin', 'DashboardController@index')->name('admin')->middleware('admin');
 
 Route::get('/index', function() {
     return view ('categories.index');
@@ -37,13 +35,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix'=>'admin','middleware'=>['admin','auth'],'namespace'=>'admin'],function() {
+// Route::group(['prefix'=>'admin','middleware'=>['admin','auth'],'namespace'=>'admin'],function() {
 
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-});
+//     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+// });
 
-Route::group(['prefix'=>'user','middleware'=>['mahasiswa','auth'],'namespace'=>'user'],function(){
+// Route::group(['prefix'=>'user','middleware'=>['mahasiswa','auth'],'namespace'=>'user'],function(){
 
-    Route::get('dashboard', 'UserDashboardController@index')->name('user.dashboard');
+//     Route::get('dashboard', 'UserDashboardController@index')->name('user.dashboard');
 
-});
+// });

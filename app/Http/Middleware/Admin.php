@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
-class AdminMidlleware
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -20,11 +21,16 @@ class AdminMidlleware
         }
 
         if (Auth::user()->id_role == 1) {
-            return redirect()->route('superadmin');
+            return redirect()->route('user');
+        }
+
+        if (Auth::user()->id_role == 2) {
+            return redirect()->route('rpk');
         }
 
         if (Auth::user()->id_role == 3) {
-            return redirect()->route('admin');
+            return $next($request);
         }
+        
     }
 }
