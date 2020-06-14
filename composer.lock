@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97b9f6e25493e232d077450850d633a8",
+    "content-hash": "1d5f9442520b8c88ec3d7f71b4604ad2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1699,16 +1699,16 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v2.0.3",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "15368c5328efb7ce94f35ca750acde9b496ab1b1"
+                "reference": "ec838c75ba1886d014c5465b1ecc79b2071f46c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/15368c5328efb7ce94f35ca750acde9b496ab1b1",
-                "reference": "15368c5328efb7ce94f35ca750acde9b496ab1b1",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/ec838c75ba1886d014c5465b1ecc79b2071f46c7",
+                "reference": "ec838c75ba1886d014c5465b1ecc79b2071f46c7",
                 "shasum": ""
             },
             "require": {
@@ -1750,7 +1750,7 @@
                 "laravel",
                 "ui"
             ],
-            "time": "2020-04-29T15:06:45+00:00"
+            "time": "2020-03-03T13:43:00+00:00"
         },
         {
             "name": "lcobucci/jwt",

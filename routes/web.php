@@ -45,3 +45,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //     Route::get('dashboard', 'UserDashboardController@index')->name('user.dashboard');
 
 // });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
