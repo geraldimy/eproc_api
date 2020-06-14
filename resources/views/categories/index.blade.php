@@ -63,7 +63,7 @@
                       <td><center>{{ $cat->category_name}}</center></td>
                       <td>{{ $cat->description}}</td>
                       <td><center>
-                        <button class="btn btn-info" data-mytitle="{{$cat->category_name}}" data-mydescription="{{$cat->description}}" data-catid={{$cat->id}} data-toggle="modal" data-target="#edit">Edit</button>
+                        <button class="btn btn-info"  data-mytitle="{{$cat->category_name}}" data-mydescription="{{$cat->description}}" data-catid={{$cat->id}} data-toggle="modal" data-target="#edit" >Edit</button>
 
                         <button class="btn btn-danger" data-catid={{$cat->id}} data-toggle="modal" data-target="#delete">Delete</button>
                         </center>
@@ -138,12 +138,14 @@ app.controller('myCtrl', function($scope) {});
 
 
 <!-- Modal -->
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-app="myApp" ng-controller="myCtrl">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit categorygory</h4>
+        <h4 class="modal-title">Edit Kategori</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <form action="{{route('category.update','test')}}" method="post">
         {{method_field('patch')}}
