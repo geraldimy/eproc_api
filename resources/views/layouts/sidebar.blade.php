@@ -25,7 +25,7 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
           <li class="nav-item">
-          <a href="{{route('admin')}}" class="nav-link ">
+          <a href="{{route('admin')}}" class="nav-link {{ request()->is('admin*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-th"></i>
                 <p>
                   Dashboard
@@ -34,7 +34,7 @@
           </li>
           
           <li class="nav-item">
-          <a href="{{route('product.index')}}" class="nav-link  active">
+          <a href="{{route('product.index')}}" class="nav-link {{ request()->is('product*') ? 'active' : '' }} ">
             <i class="nav-icon fas fa-shopping-cart"></i>
             <p>
               Produk
@@ -42,7 +42,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('category.index')}}" class="nav-link  ">
+          <a href="{{route('category.index')}}" class="nav-link {{ request()->is('category*') ? 'active' : '' }}   ">
             <i class="nav-icon fas fa-th-large"></i>
             <p>
               Kategori
@@ -50,7 +50,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('promo.index')}}" class="nav-link ">
+          <a href="{{route('promo.index')}}" class="nav-link {{ request()->is('promo*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-gift"></i>
             <p>
               Promo

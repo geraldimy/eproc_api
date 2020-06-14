@@ -38,7 +38,7 @@
                 <span class="info-box-text">Category</span>
                 <span class="info-box-number">
               
-                  3
+                  {{ $jumlah_category }}
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -52,7 +52,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Product</span>
-                <span class="info-box-number">2</span>
+                <span class="info-box-number">{{ $jumlah_product }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -69,7 +69,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Promo</span>
-                <span class="info-box-number">1</span>
+                <span class="info-box-number">{{ $jumlah_promo }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
